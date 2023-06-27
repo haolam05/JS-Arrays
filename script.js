@@ -333,3 +333,27 @@ console.log(movements, firstWithdrawal);
 console.log(accounts);
 const account = accounts.find(account => account.owner === 'Jessica Davis');
 console.log(account);
+
+// flat method
+const array = [[1, 2, [[3]]], [4, 5, 6], 7, [[8]]];
+console.log(array.flat());
+console.log(array.flat(2));
+console.log(array.flat(3));
+console.log(array);
+// Get overallBalance
+// method 1
+const allMovements = accounts.map(acc => acc.movements).flat();
+console.log(allMovements);
+const overallBalance = allMovements.reduce((acc, mov) => acc + mov);
+console.log(overallBalance);
+// method 2
+const overallBalance2 = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov);
+console.log(overallBalance2);
+// method 3
+const overallBalance3 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov);
+console.log(overallBalance3);
