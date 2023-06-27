@@ -461,3 +461,42 @@ const convertTitleCase = function (title) {
 console.log(convertTitleCase('this is a nice title'));
 console.log(convertTitleCase('this is a LONG title but not too long'));
 console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+
+// Coding Challenge #4
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+dogs.forEach(
+  dog => (dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28))
+);
+console.log(dogs);
+const eatMsg = (recommendedFood, currFood) =>
+  currFood > recommendedFood * 0.9 && currFood < recommendedFood * 1.1
+    ? 'OK'
+    : currFood > recommendedFood
+    ? 'too much'
+    : 'too little';
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(
+  `Sarah's dog eats ${eatMsg(dogSarah.recommendedFood, dogSarah.curFood)}`
+);
+const ownersEatTooMuch = dogs
+  .filter(dog => eatMsg(dog.recommendedFood, dog.curFood) === 'too much')
+  .flatMap(dog => dog.owners);
+const ownersEatTooLittle = dogs
+  .filter(dog => eatMsg(dog.recommendedFood, dog.curFood) === 'too little')
+  .flatMap(dog => dog.owners);
+const ownersEatOK = dogs
+  .filter(dog => eatMsg(dog.recommendedFood, dog.curFood) === 'OK')
+  .flatMap(dog => dog.owners);
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little`);
+console.log(`${ownersEatOK.join(' and ')}'s dogs eat OK`);
+console.log(dogs.some(dog => dog.recommendedFood === dog.curFood));
+console.log(
+  dogs.some(dog => eatMsg(dog.recommendedFood, dog.curFood) === 'OK')
+);
+console.log(dogs.slice().sort((dog1, dog2) => dog1.recommendedFood - dog2.recommendedFood));
