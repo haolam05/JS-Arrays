@@ -1,1 +1,1 @@
-# JS-Arrays
+# JS-Arrays-Bankist
