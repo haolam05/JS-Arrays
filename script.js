@@ -375,3 +375,41 @@ nums.sort((a, b) => (a > b ? 1 : -1));
 console.log(nums);
 nums.sort((a, b) => b - a);
 console.log(nums);
+
+// fill method
+let x = new Array(7);
+console.log(x);
+console.log(x.map(() => 5));
+console.log(x.fill(1));
+x = new Array(7);
+console.log(x.fill(1, 3));
+x = new Array(7);
+console.log(x.fill(1, 3, 5));
+const arr2 = [1, 2, 3, 4, 5, 6, 7];
+arr2.fill(5, 1, 5);
+console.log(arr2);
+
+// Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// returns array-like structure(not array) -> can't use array methods
+// NodeList(2) [div.movements__value, ...] - node list has property length -> works
+console.log(document.querySelectorAll('.movements__value'));
+// We can convert it to array using Array.from
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    // el => el
+    // el => el.textContent
+    // el => el.textContent.replace(' €', '')
+    el => Number(el.textContent.replace(' €', ''))
+  );
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(
+    el => Number(el.textContent.replace(' €', ''))
+  );
+  console.log(movementsUI);
+  console.log(movementsUI2);
+});
