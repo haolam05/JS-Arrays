@@ -77,6 +77,20 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const createUsernames = function (accounts) {
+  accounts.forEach(function (account) {
+    account.username = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+console.log(accounts);
+
+
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -182,3 +196,19 @@ const checkDogs = function (dogsJulia, dogsKate) {
 };
 checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+// Map method
+const eurToUsd = 1.1;
+let movementsUSD = movements.map(mov => mov * eurToUsd);
+console.log(movementsUSD);
+
+// Filter method
+const deposits = movements.filter(mov => mov > 0);
+const withdrawal = movements.filter(mov => mov < 0);
+console.log(movements);
+console.log(deposits);
+console.log(withdrawal);
+
+// Reduce method
+const balance = movements.reduce((acc, curr, i, arr) => acc + curr, 0);
+console.log(balance);
