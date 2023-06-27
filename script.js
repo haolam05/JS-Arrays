@@ -70,7 +70,7 @@ const displayMovements = function (movements) {
       <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov} €</div>
     </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -94,6 +94,26 @@ const calcPrintBalance = function (movements) {
   labelBalance.textContent = `${balance} €`;
 };
 calcPrintBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const income = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${income} €`;
+
+  const expense = Math.abs(
+    movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0)
+  );
+  labelSumOut.textContent = `${expense} €`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(mov => mov * 0.012)
+    .filter(int => int >= 1)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumInterest.textContent = interest;
+};
+calcDisplaySummary(account1.movements);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
