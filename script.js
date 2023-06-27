@@ -301,10 +301,10 @@ console.log(movementsUSD);
 
 // Filter method
 const deposits = movements.filter(mov => mov > 0);
-const withdrawal = movements.filter(mov => mov < 0);
+const withdrawals = movements.filter(mov => mov < 0);
 console.log(movements);
 console.log(deposits);
-console.log(withdrawal);
+console.log(withdrawals);
 
 // Reduce method
 const balance = movements.reduce((acc, curr, i, arr) => acc + curr, 0);
@@ -413,3 +413,51 @@ labelBalance.addEventListener('click', function () {
   console.log(movementsUI);
   console.log(movementsUI2);
 });
+
+// Array Methods Practice
+// Ex1
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, mov) => sum + mov, 0);
+console.log(bankDepositSum);
+
+// Ex2
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov >= 1000).length;
+console.log(numDeposits1000);
+const numDeposits1000V2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + (mov >= 1000 ? 1 : 0), 0);
+console.log(numDeposits1000V2);
+
+// Ex3
+const { deposits: ins, withdrawals: outs } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (acc, mov) => {
+      // mov > 0 ? (acc.deposits += mov) : (acc.withdrawals += mov);
+      acc[mov > 0 ? 'deposits' : 'withdrawals'] += mov;
+      return acc;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+console.log(ins, outs);
+
+// Ex4
+// this is a nice title -> This Is a Nice Title
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+  return capitalize(
+    title
+      .toLowerCase()
+      .split(' ')
+      .map(w => (exceptions.includes(w) ? w : capitalize(w)))
+      .join(' ')
+  );
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
